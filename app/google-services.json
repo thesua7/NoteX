@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876074374383",
+    "project_id": "notex-thesua",
+    "storage_bucket": "notex-thesua.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876074374383:android:fc98ee624fe960beef771a",
+        "android_client_info": {
+          "package_name": "com.thesua.notex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlDODyN2avT7oUf3f1rA4xYeKKHJwawX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
