@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -38,8 +39,9 @@ class signupFragment : Fragment() {
         binding.btnSignUp.setOnClickListener {
             if (binding.txtEmail.text.isNotEmpty() && binding.txtPassword.text.isNotEmpty()) {
                 lifecycleScope.launch {
-                    Log.d("Threads",Thread.currentThread().name)
-                    handleRegister(binding.txtEmail.text.toString(),binding.txtPassword.text.toString())
+                    bindingRegister(
+                        binding.txtEmail.text.toString(), binding.txtPassword.text.toString()
+                    )
                 }
 
             } else {
@@ -54,18 +56,23 @@ class signupFragment : Fragment() {
         }
     }
 
-    private suspend fun handleRegister(email:String,password:String) {
-        viewModel.signUpWithEmailAndPassword(email,password).observe(viewLifecycleOwner) {
+    private suspend fun bindingRegister(email: String, password: String) {
+        viewModel.signUpWithEmailAndPassword(email, password)
+        viewModel.signUpResult.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = true
             when (it) {
                 is Result.Success -> {
-                    Log.d("heda", it.data.uid + " " + it.data.email)
                     findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
-
 
                 }
 
                 is Result.Error -> {
                     binding.txtError.text = it.exception.message
+                }
+
+                is Result.Loading -> {
+                    binding.progressBar.isVisible = true
+
                 }
             }
         }

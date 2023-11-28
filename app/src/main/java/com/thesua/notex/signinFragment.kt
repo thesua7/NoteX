@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,7 +40,7 @@ class signinFragment : Fragment() {
         binding.btnLogin.setOnClickListener{
             if (binding.txtEmail.text.toString().isNotEmpty() && binding.txtPassword.text.toString().isNotEmpty()){
                 lifecycleScope.launch {
-                    handleLogin(binding.txtEmail.text.toString(),binding.txtPassword.text.toString())
+                    bindingLogin(binding.txtEmail.text.toString(),binding.txtPassword.text.toString())
                 }
             }
             else{
@@ -49,8 +50,11 @@ class signinFragment : Fragment() {
 
     }
 
-    private suspend fun handleLogin(email: String, password: String) {
-        viewModel.signInWithEmailAndPassword(email,password).observe(viewLifecycleOwner) {
+    private suspend fun bindingLogin(email: String, password: String) {
+
+        viewModel.signInWithEmailAndPassword(email,password)
+        viewModel.signInResult.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = false
             when (it) {
                 is Result.Success -> {
                     Log.d("asd", it.data.uid)
@@ -59,6 +63,9 @@ class signinFragment : Fragment() {
 
                 is Result.Error -> {
                     binding.txtError.text = it.exception.message
+                }
+                is Result.Loading ->{
+                    binding.progressBar.isVisible = true
                 }
             }
         }

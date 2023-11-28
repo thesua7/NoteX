@@ -114,13 +114,15 @@
 
         <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress_bar"
-            style="@style/SpinKitView.ThreeBounce"
+            style="@style/SpinKitView.Small.RotatingPlane"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="5dp"
+
             android:indeterminate="true"
             android:visibility="gone"
-            app:SpinKit_Color="@color/black" />
+            app:SpinKit_Color="@color/x" />
 
     </LinearLayout>
 

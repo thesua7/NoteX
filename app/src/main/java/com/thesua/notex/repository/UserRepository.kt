@@ -13,28 +13,34 @@ class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val appDao: AppDao
 ) {
-    suspend fun signInWithEmailAndPassword(email: String, password: String): Result<User> {
-        return try {
+    suspend fun signInWithEmailAndPassword(
+        email: String, password: String, onResult: (Result<User>) -> Unit
+    ) {
+        try {
+            onResult(Result.Loading)
             val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
             appDao.insertUser(user)
-            Result.Success(user)
+            onResult(Result.Success(user))
 
         } catch (e: Exception) {
-            Result.Error(e)
+            onResult(Result.Error(e))
         }
     }
 
 
+    suspend fun signUpWithEmailAndPassword(
+        email: String, password: String, onResult: (Result<User>) -> Unit
+    ) {
+        try {
+            onResult(Result.Loading)
 
-    suspend fun signUpWithEmailAndPassword(email: String, password: String): Result<User> {
-        return try {
             val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
             appDao.insertUser(user)
-            Result.Success(user)
+            onResult(Result.Success(user))
         } catch (e: Exception) {
-            Result.Error(e)
+            onResult(Result.Error(e))
         }
     }
 

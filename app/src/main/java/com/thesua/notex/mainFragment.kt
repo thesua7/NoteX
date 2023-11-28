@@ -34,19 +34,19 @@ class mainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.heda.setOnClickListener{
-            viewModel.signOut().observe(viewLifecycleOwner) {
-                when (it) {
-                    is Result.Success -> {
-                        Log.d("logout", it.data.toString())
-                    }
-
-                    is Result.Error -> {
-                        Log.d("logoutError", it.exception.message.toString())
-                    }
-                }
-            }
-        }
+//        binding.heda.setOnClickListener{
+//            viewModel.signOut().observe(viewLifecycleOwner) {
+//                when (it) {
+//                    is Result.Success -> {
+//                        Log.d("logout", it.data.toString())
+//                    }
+//
+//                    is Result.Error -> {
+//                        Log.d("logoutError", it.exception.message.toString())
+//                    }
+//                }
+//            }
+//        }
     }
 
 

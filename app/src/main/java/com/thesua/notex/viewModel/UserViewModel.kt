@@ -14,28 +14,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
+    private val _signInResult = MutableLiveData<Result<User>>()
+    val signInResult: LiveData<Result<User>> get() = _signInResult
 
-    suspend fun signInWithEmailAndPassword(
-        email: String, password: String
-    ): LiveData<Result<User>> {
-        val resultLiveData = MutableLiveData<Result<User>>()
+
+    private val _signUpResult = MutableLiveData<Result<User>>()
+    val signUpResult: LiveData<Result<User>> get() = _signUpResult
+    suspend fun signInWithEmailAndPassword(email: String, password: String) {
         viewModelScope.launch {
-            val result = userRepository.signInWithEmailAndPassword(email, password)
-            resultLiveData.value = result
+            userRepository.signInWithEmailAndPassword(email, password) { result ->
+                _signInResult.value = result
+
+            }
         }
-        return resultLiveData
     }
 
-    suspend fun signUpWithEmailAndPassword(
-        email: String, password: String
-    ): LiveData<Result<User>> {
-        val resultLiveData = MutableLiveData<Result<User>>()
+
+    suspend fun signUpWithEmailAndPassword(email: String, password: String) {
         viewModelScope.launch {
-            Log.d("Threads",Thread.currentThread().name)
-            val result = userRepository.signUpWithEmailAndPassword(email, password)
-            resultLiveData.value = result
+            userRepository.signUpWithEmailAndPassword(email, password) { result ->
+                _signUpResult.value = result
+            }
+
         }
-        return resultLiveData
+
     }
 
     fun signOut(): LiveData<Result<Unit>> {
