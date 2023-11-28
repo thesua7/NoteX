@@ -1,12 +1,11 @@
 package com.thesua.notex.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.thesua.notex.db.AppDao
-import com.thesua.notex.model.auth.FirebaseUser
-import com.thesua.notex.model.auth.UserModel
+import com.thesua.notex.model.auth.Result
+import com.thesua.notex.model.auth.User
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -14,37 +13,39 @@ class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val appDao: AppDao
 ) {
-    suspend fun signIn(email:String,password:String){
-        firebaseAuth.signInWithEmailAndPassword(email,password)
-    }
+    suspend fun signInWithEmailAndPassword(email: String, password: String): Result<User> {
+        return try {
+            val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
+            appDao.insertUser(user)
+            Result.Success(user)
 
-    suspend fun signUp(email: String,password: String){
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
-    }
-
-    fun signOut(){
-        firebaseAuth.signOut()
-    }
-
-    fun observeAuthState():LiveData<FirebaseUser?>{
-        val userLiveData = MutableLiveData<FirebaseUser?>()
-        val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-            val firebaseUser = firebaseAuth.currentUser
-            userLiveData.value = firebaseUser?.let {
-                FirebaseUser(it.uid ,it.displayName?:"",it.email?:" ")
-            }
+        } catch (e: Exception) {
+            Result.Error(e)
         }
-
-        return userLiveData
     }
 
-    fun observeLocalUser():LiveData<List<UserModel>>{
-        return appDao.observerUser()
+
+
+    suspend fun signUpWithEmailAndPassword(email: String, password: String): Result<User> {
+        return try {
+            val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+            val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
+            appDao.insertUser(user)
+            Result.Success(user)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
-    suspend fun saveUserLocally(data: UserModel){
-        appDao.insertUser(data)
-    }
 
+    fun signOut(): Result<Unit> {
+        return try {
+            firebaseAuth.signOut()
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 
 }

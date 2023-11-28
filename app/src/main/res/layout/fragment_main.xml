@@ -7,8 +7,10 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/heda"
+        android:background="@color/red"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:text="Main Fragment" />
 
 </FrameLayout>

@@ -17,8 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/sf_pro_display_bold"
-            android:text="@string/txt_register_header"
+
+            android:text="@string/txt_header_create_new_account"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -26,43 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/sf_pro_display_regular"
-            android:text="@string/txt_register_subheader"
-            android:textColor="@color/light_gray"
+            android:text="@string/txt_please_provide_all_the_required_information"
+            android:textColor="@color/light_grey"
             android:textSize="16sp" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:fontFamily="@font/sf_pro_display_regular"
-            android:text="@string/txt_username"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/txt_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:hint="@string/txt_username_hint"
-            android:textColor="@color/black"
-            android:textColorHint="@color/light_gray"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/light_gray" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/sf_pro_display_regular"
+            android:layout_marginTop="40dp"
             android:text="@string/txt_email"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -72,25 +45,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
+            android:maxLines="1"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:hint="@string/txt_email_hint"
+            android:hint="@string/txt_email"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
-            android:textColorHint="@color/light_gray"
+            android:textColorHint="@color/light_grey"
             android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:background="@color/light_gray" />
+            android:background="@color/x" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/sf_pro_display_regular"
             android:text="@string/txt_password"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -101,27 +73,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:hint="@string/txt_password_hint"
+            android:hint="@string/txt_password"
             android:inputType="textPassword"
             android:textColor="@color/black"
-            android:textColorHint="@color/light_gray"
+            android:textColorHint="@color/light_grey"
             android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:background="@color/light_gray" />
+            android:background="@color/x" />
 
         <TextView
             android:id="@+id/txt_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/sf_pro_display_regular"
             android:text=""
-            android:textColor="@color/highlight_text_color"
+            android:textColor="@color/red"
             android:textSize="12sp" />
 
         <Button
@@ -131,7 +101,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/sf_pro_display_bold"
             android:text="@string/txt_sign_up"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -143,8 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:text="@string/txt_already_have_account"
+            android:text="@string/txt_already_have_an_account"
             android:textSize="14sp" />
 
         <com.github.ybq.android.spinkit.SpinKitView

@@ -1,49 +1,49 @@
 package com.thesua.notex.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thesua.notex.model.auth.FirebaseUser
-import com.thesua.notex.model.auth.UserModel
+import com.thesua.notex.model.auth.Result
+import com.thesua.notex.model.auth.User
 import com.thesua.notex.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
-    val authState : LiveData<FirebaseUser?> = userRepository.observeAuthState()
-    val localUsers:LiveData<List<UserModel>> = userRepository.observeLocalUser()
 
-    fun signIn(email:String,password:String){
+    suspend fun signInWithEmailAndPassword(
+        email: String, password: String
+    ): LiveData<Result<User>> {
+        val resultLiveData = MutableLiveData<Result<User>>()
         viewModelScope.launch {
-            try {
-                userRepository.signIn(email,password)
-            }catch (e:Exception){
-
-            }
+            val result = userRepository.signInWithEmailAndPassword(email, password)
+            resultLiveData.value = result
         }
+        return resultLiveData
     }
 
-    fun signUp(email: String,password: String){
+    suspend fun signUpWithEmailAndPassword(
+        email: String, password: String
+    ): LiveData<Result<User>> {
+        val resultLiveData = MutableLiveData<Result<User>>()
         viewModelScope.launch {
-            try {
-                userRepository.signUp(email,password)
-            }catch (e:Exception){
-
-            }
+            Log.d("Threads",Thread.currentThread().name)
+            val result = userRepository.signUpWithEmailAndPassword(email, password)
+            resultLiveData.value = result
         }
+        return resultLiveData
     }
 
-    fun saveUserDataLocally(data:UserModel){
-        viewModelScope.launch(Dispatchers.IO){
-            try {
-                userRepository.saveUserLocally(data)
-            }catch (e:Exception){
-
-            }
+    fun signOut(): LiveData<Result<Unit>> {
+        val resultLiveData = MutableLiveData<Result<Unit>>()
+        viewModelScope.launch {
+            val result = userRepository.signOut()
+            resultLiveData.value = result
         }
+        return resultLiveData
     }
 }

@@ -77,4 +77,8 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Progress Bar
+    implementation ("com.github.ybq:Android-SpinKit:1.4.0")
+
 }

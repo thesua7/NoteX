@@ -5,13 +5,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.thesua.notex.model.auth.UserModel
+import com.thesua.notex.model.auth.User
 
 @Dao
 interface AppDao {
-    @Query("select * from user")
-    fun observerUser():LiveData<List<UserModel>>
+    @Query("SELECT * FROM user WHERE uid = :uid")
+    suspend fun getUser(uid: String): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(data:UserModel)
+    suspend fun insertUser(user: User)
 }
