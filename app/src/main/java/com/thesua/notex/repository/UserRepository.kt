@@ -1,6 +1,7 @@
 package com.thesua.notex.repository
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.thesua.notex.db.AppDao
 import com.thesua.notex.model.auth.Result
@@ -13,6 +14,7 @@ class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val appDao: AppDao
 ) {
+
     suspend fun signInWithEmailAndPassword(
         email: String, password: String, onResult: (Result<User>) -> Unit
     ) {
@@ -45,6 +47,10 @@ class UserRepository @Inject constructor(
     }
 
 
+    fun isAuthenticated():Boolean{
+        return firebaseAuth.currentUser!=null
+    }
+
     fun signOut(): Result<Unit> {
         return try {
             firebaseAuth.signOut()
@@ -54,4 +60,7 @@ class UserRepository @Inject constructor(
         }
     }
 
+    fun getCurrentUser():FirebaseUser?{
+        return FirebaseAuth.getInstance().currentUser
+    }
 }

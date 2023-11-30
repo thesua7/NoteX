@@ -2,6 +2,7 @@ package com.thesua.notex.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +23,11 @@ class FirebaseModule {
     fun provideFirebaseDatabase(): FirebaseDatabase {
         return FirebaseDatabase.getInstance()
     }
+
+    @Provides
+    @Singleton
+    fun providesFirebaseFirestore():FirebaseFirestore{
+        return FirebaseFirestore.getInstance()
+    }
+
 }

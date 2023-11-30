@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseUser
 import com.thesua.notex.model.auth.Result
 import com.thesua.notex.model.auth.User
 import com.thesua.notex.repository.UserRepository
@@ -20,6 +21,10 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
 
     private val _signUpResult = MutableLiveData<Result<User>>()
     val signUpResult: LiveData<Result<User>> get() = _signUpResult
+
+
+//    private val _currentUserUid = MutableLiveData<String?>()
+//    val currentUserUid: LiveData<String?> get() = _currentUserUid
     suspend fun signInWithEmailAndPassword(email: String, password: String) {
         viewModelScope.launch {
             userRepository.signInWithEmailAndPassword(email, password) { result ->
@@ -47,5 +52,14 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
             resultLiveData.value = result
         }
         return resultLiveData
+    }
+
+
+    fun isAuthenticated(): Boolean {
+        return userRepository.isAuthenticated()
+    }
+
+    fun getCurrentUserUid(): FirebaseUser? {
+        return userRepository.getCurrentUser()
     }
 }

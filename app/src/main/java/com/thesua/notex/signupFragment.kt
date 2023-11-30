@@ -1,5 +1,7 @@
 package com.thesua.notex
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,12 +26,23 @@ class signupFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: UserViewModel by viewModels()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         _binding = FragmentSignupBinding.inflate(layoutInflater, container, false)
+        sharedPreferences = requireActivity().getSharedPreferences("W",Context.MODE_PRIVATE)
+
+        if (viewModel.isAuthenticated()){
+            findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
+        }
+
+//        val result = sharedPreferences.getString("uid","")
+//        if (result!=null){
+//            findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
+//        }
         return binding.root
     }
 
@@ -59,7 +72,7 @@ class signupFragment : Fragment() {
     private suspend fun bindingRegister(email: String, password: String) {
         viewModel.signUpWithEmailAndPassword(email, password)
         viewModel.signUpResult.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = true
+            binding.progressBar.isVisible = false
             when (it) {
                 is Result.Success -> {
                     findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
