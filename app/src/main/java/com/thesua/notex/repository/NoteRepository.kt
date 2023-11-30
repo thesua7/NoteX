@@ -25,7 +25,7 @@ class NoteRepository @Inject constructor(
     suspend fun insertIntoFirebase(note: NoteModel, onResult: (Result<String>) -> Unit) {
         try {
             onResult(Result.Loading)
-            firebaseFirestore.collection("notes").document(note.uid).set(note).await()
+            firebaseFirestore.collection("notes").document(note.id).set(note).await()
             insertNoteDB(note)
             onResult(Result.Success("Success"))
 
@@ -38,7 +38,8 @@ class NoteRepository @Inject constructor(
     suspend fun getNotesFromFirebase(uid: String, onResult: (Result<DocumentSnapshot>) -> Unit) {
         try {
             onResult(Result.Loading)
-            val result = firebaseFirestore.collection("notes").document(uid).get().await()
+            val result =
+                firebaseFirestore.collection("notes").document(uid).get().await()
 //                firebaseFirestore.collection("notes").get().await().toObjects(NoteModel::class.java)
             onResult(Result.Success(result))
         } catch (e: Exception) {
@@ -47,7 +48,7 @@ class NoteRepository @Inject constructor(
     }
 
     suspend fun updateIntoFirebase(
-        uid: String, title: String, description: String, onResult: (Result<String>) -> Unit
+        id: String, title: String, description: String, onResult: (Result<String>) -> Unit
     ) {
         try {
             onResult(Result.Loading)
@@ -56,7 +57,7 @@ class NoteRepository @Inject constructor(
                 "description" to description,
                 // Add other fields to update as needed
             )
-            firebaseFirestore.collection("notes").document(uid).update(updates).await()
+            firebaseFirestore.collection("notes").document(id).update(updates).await()
             onResult(Result.Success("Success"))
         } catch (e: Exception) {
             onResult(Result.Error(e))
@@ -71,7 +72,7 @@ class NoteRepository @Inject constructor(
             onResult(Result.Success("Deleted"))
 
 
-        } catch (e:Exception){
+        } catch (e: Exception) {
             onResult(Result.Error(e))
         }
 

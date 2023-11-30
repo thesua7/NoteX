@@ -14,4 +14,8 @@
     <string name="txt_already_have_an_account">Already have an account?</string>
     <string name="txt_login">Login</string>
     <string name="txt_don_t_have_an_account_register_now">Don\'t have an account? <font color="#25FF8E">Register Now</font></string>
+    <string name="txt_title">Title</string>
+    <string name="txt_type_your_title">Type your title</string>
+    <string name="txt_description">Description</string>
+    <string name="txt_submit">Submit</string>
 </resources>

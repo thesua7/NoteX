@@ -59,7 +59,10 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
         return userRepository.isAuthenticated()
     }
 
-    fun getCurrentUserUid(): FirebaseUser? {
-        return userRepository.getCurrentUser()
+    fun getCurrentUserUid(): String {
+        if (userRepository.getCurrentUser()==null){
+            return ""
+        }
+        return userRepository.getCurrentUser()!!.uid
     }
 }

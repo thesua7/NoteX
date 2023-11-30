@@ -6,8 +6,9 @@ import com.google.firebase.initialize
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class NoteXApplication:Application()
-//    override fun onCreate() {
-//        super.onCreate()
-//        Firebase.initialize(this)
-//    }
+class NoteXApplication:Application(){
+    override fun onCreate() {
+        super.onCreate()
+        Firebase.initialize(this)
+    }
+}

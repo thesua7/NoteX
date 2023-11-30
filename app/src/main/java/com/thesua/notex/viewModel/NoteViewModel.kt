@@ -10,6 +10,7 @@ import com.thesua.notex.model.notes.NoteModel
 import com.thesua.notex.repository.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 
@@ -31,17 +32,19 @@ class NoteViewModel @Inject constructor(private val noteRepository: NoteReposito
     private val _getResults = MutableLiveData<Result<DocumentSnapshot>>()
     val getResults: LiveData<Result<DocumentSnapshot>>
         get() =_getResults
-    suspend fun insertNote(note: NoteModel) {
+    suspend fun insertNote(title: String,description: String,uid: String) {
         viewModelScope.launch {
+            val noteId = UUID.randomUUID().toString()
+            val note = NoteModel(noteId,title,description,uid)
             noteRepository.insertIntoFirebase(note) {
                 _insertResults.value = it
             }
         }
     }
 
-    suspend fun updateNote(title:String,description:String,uid:String){
+    suspend fun updateNote(title:String,description:String,id:String){
         viewModelScope.launch {
-            noteRepository.updateIntoFirebase(uid,title,description,){
+            noteRepository.updateIntoFirebase(id,title,description,){
                 _getUpdateResponse.value = it
             }
         }
