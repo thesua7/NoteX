@@ -22,7 +22,7 @@ class UserRepository @Inject constructor(
             onResult(Result.Loading)
             val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
-            appDao.insertUser(user)
+
             onResult(Result.Success(user))
 
         } catch (e: Exception) {
@@ -39,7 +39,7 @@ class UserRepository @Inject constructor(
 
             val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             val user = User(authResult.user?.uid.orEmpty(), authResult.user?.email.orEmpty())
-            appDao.insertUser(user)
+
             onResult(Result.Success(user))
         } catch (e: Exception) {
             onResult(Result.Error(e))
