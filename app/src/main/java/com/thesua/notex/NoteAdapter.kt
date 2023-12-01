@@ -18,7 +18,6 @@ class NoteAdapter(private val onNoteClicked: (NoteModel) -> Unit) : ListAdapter<
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val note = getItem(position)
-        Log.d("ZZZZ",note.toString())
         note?.let {
             holder.bind(it)
         }

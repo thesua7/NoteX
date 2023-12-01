@@ -47,9 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/txt_title"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/txt_title"
@@ -86,8 +86,8 @@
             android:hint="Type your description"
             android:inputType="textMultiLine"
             android:lines="10"
-            android:scrollHorizontally="false"
             android:scrollbars="vertical"
+            android:scrollHorizontally="false"
             android:textColor="@color/black"
             android:textColorHint="@color/light_grey"
             android:textSize="16sp" />
@@ -97,6 +97,23 @@
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:background="@color/x" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress_bar"
+            style="@style/SpinKitView.Large.RotatingPlane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:padding="5dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
             android:id="@+id/btn_submit"

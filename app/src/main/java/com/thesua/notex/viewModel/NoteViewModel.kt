@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.thesua.notex.model.auth.Result
 import com.thesua.notex.model.notes.NoteModel
 import com.thesua.notex.repository.NoteRepository
@@ -29,8 +30,8 @@ class NoteViewModel @Inject constructor(private val noteRepository: NoteReposito
         get() = _deleteResponse
 
 
-    private val _getResults = MutableLiveData<Result<DocumentSnapshot>>()
-    val getResults: LiveData<Result<DocumentSnapshot>>
+    private val _getResults = MutableLiveData<Result<QuerySnapshot>>()
+    val getResults: LiveData<Result<QuerySnapshot>>
         get() =_getResults
     suspend fun insertNote(title: String,description: String,uid: String) {
         viewModelScope.launch {

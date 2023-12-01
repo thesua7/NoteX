@@ -4,6 +4,7 @@ import android.icu.text.CaseMap.Title
 import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.thesua.notex.db.AppDao
 import com.thesua.notex.model.auth.Result
 import com.thesua.notex.model.notes.NoteModel
@@ -35,11 +36,11 @@ class NoteRepository @Inject constructor(
 
     }
 
-    suspend fun getNotesFromFirebase(uid: String, onResult: (Result<DocumentSnapshot>) -> Unit) {
+    suspend fun getNotesFromFirebase(uid: String, onResult: (Result<QuerySnapshot>) -> Unit) {
         try {
             onResult(Result.Loading)
             val result =
-                firebaseFirestore.collection("notes").document(uid).get().await()
+                firebaseFirestore.collection("notes").whereEqualTo("uid",uid).get().await()
 //                firebaseFirestore.collection("notes").get().await().toObjects(NoteModel::class.java)
             onResult(Result.Success(result))
         } catch (e: Exception) {

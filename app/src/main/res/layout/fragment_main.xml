@@ -7,6 +7,16 @@
 
 
     <TextView
+        android:id="@+id/logoutTv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/baseline_logout_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:textColor="@color/black"
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -34,12 +44,13 @@
     <com.github.ybq.android.spinkit.SpinKitView
         android:visibility="gone"
         android:id="@+id/progress_bar"
-        style="@style/SpinKitView.Large.ThreeBounce"
+        style="@style/SpinKitView.Large.RotatingPlane"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:padding="5dp"
         android:indeterminate="true"
-        app:SpinKit_Color="@color/black"
+        app:SpinKit_Color="@color/x"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
