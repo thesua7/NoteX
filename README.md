@@ -1,7 +1,7 @@
 # NoteX
 
 NoteX Android App 
--CRUD using firebase firestore
+-CRUD using firebase(firebase auth + firebase cloudStore)
 -MVVM
 -Coroutine
 -Hilt
