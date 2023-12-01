@@ -26,13 +26,11 @@ class signinFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: UserViewModel by viewModels()
-    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         _binding = FragmentSigninBinding.inflate(layoutInflater, container, false)
-        sharedPreferences = requireActivity().getSharedPreferences("W", Context.MODE_PRIVATE)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -65,8 +63,7 @@ class signinFragment : Fragment() {
             when (it) {
 
                 is Result.Success -> {
-                    sharedPreferences.edit().putString("uid",it.data.uid).apply()
-                    Log.d("asd", it.data.uid)
+
                     findNavController().navigate(R.id.action_signinFragment_to_mainFragment)
                 }
 

@@ -1,6 +1,7 @@
 package com.thesua.notex
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,8 @@ class mainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.noteList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.noteList.adapter =  noteAdapter
+        token = viewModel.getCurrentUserUid()
+        Log.d("asd",token)
         binding.addNote.setOnClickListener{
             findNavController().navigate(R.id.action_mainFragment_to_noteFragment)
         }
@@ -57,8 +60,6 @@ class mainFragment : Fragment() {
 
 
         if (viewModel.isAuthenticated()) {
-            token = viewModel.getCurrentUserUid()
-
             lifecycleScope.launch {
                 bindObserver()
                 noteViewModel.getNotes(token)

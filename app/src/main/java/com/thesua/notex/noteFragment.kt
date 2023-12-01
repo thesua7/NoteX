@@ -61,7 +61,7 @@ class noteFragment : Fragment() {
                     noteViewModel.updateNote(
                         binding.txtTitle.text.toString(),
                         binding.txtDescription.text.toString(),
-                        viewModel.getCurrentUserUid()
+                        note!!.id
                     )
 
                 }
@@ -70,7 +70,7 @@ class noteFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener {
             lifecycleScope.launch {
-                noteViewModel.deleteNote(viewModel.getCurrentUserUid())
+                noteViewModel.deleteNote(note!!.id)
             }
         }
     }
